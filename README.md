@@ -1,4 +1,4 @@
-# Epistemic Uncertainty-Aware Surrogate Modeling and Dual MCDM Optimization of Areca/Kenaf Hybrid Epoxy Composites
+# Investigation into the mechanical behavior of chemically functionalized areca/kenaf hybrid polymer composites through Fuzzy–GRA and ANN-TOPSIS
 
 This repository contains the full source code and experimental evaluation pipeline for the research manuscript.
 
