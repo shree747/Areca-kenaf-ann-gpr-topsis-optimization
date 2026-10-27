@@ -1,80 +1,59 @@
-# Areca-kenaf-ann-gpr-topsis-optimization
-Data-driven machine learning (ANN vs. GPR) and dual multi-objective optimization (GRA &amp; TOPSIS) framework for Areca husk/Kenaf bast hybrid epoxy biocomposites.
-# Tech Stack Summary
-• Core Language: Python 3.10+
-• Machine Learning Frameworks: PyTorch 2.0+, Scikit-Learn 1.3+
-• Regression & Modeling: Gaussian Process Regression (GPR), Artificial Neural Networks (ANN)
-• Multi-Objective Optimization: Vectorized TOPSIS, Grey Relational Analysis (GRA)
-• Design of Experiments (DoE): Taguchi L9 Matrix Generator & Analysis
-• Image & Fractography Analysis: OpenCV 4.8+, SciPy (Void fraction & debonding gap analysis)
-• Data Processing & Viz: Pandas 2.0+, NumPy 1.24+, Matplotlib 3.7+, Seaborn 0.12+
-# Machine Learning & Multi-Objective Optimization for Areca/Kenaf Hybrid Bio-Composites
+# Areca/Kenaf Hybrid Epoxy Composites Analysis Framework
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
-[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.3+-F7931E.svg)](https://scikit-learn.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This repository provides the non-simulated python implementation, multi-criteria decision-making (MCDM) analysis, and machine learning surrogate modeling for the study on **Areca husk and Kenaf bast fiber-reinforced hybrid epoxy composites**.
 
-This repository contains the official implementation of the artificial neural network (ANN) predictive model benchmarked against Gaussian Process Regression (GPR) and dual multi-objective decision modeling using **Grey Relational Analysis (GRA)** and **TOPSIS** for optimizing Areca husk and Kenaf bast fiber-reinforced hybrid epoxy composites.
+## Key Highlights & Methodologies
+- **Experimental Design:** Taguchi $L_9(3^3)$ Orthogonal Array evaluating Areca loading (0–10 wt%), Kenaf loading (0–10 wt%), and Benzoyl Chloride Treatment (0–5 wt%).
+- **Multi-Objective Decision Making:** 
+  - Standard Grey Relational Analysis (GRA)
+  - Mamdani Fuzzy Inference System (FIS) based Fuzzy-GRA (GFRG) featuring a 27 IF-THEN rule base
+  - Technique for Order Preference by Similarity to Ideal Solution (TOPSIS)
+- **Machine Learning Surrogate Modeling:** Gaussian Process Regression (GPR) with Matérn/RBF kernel and Leave-One-Out Cross-Validation (LOOCV).
+- **Zero Simulation / Synthetic Data:** All data processing, cross-validation folds, and fuzzy inference evaluations run deterministically on raw experimental measurements.
 
----
+## Repository Contents
+- `run_analysis.py`: Complete execution pipeline including raw Taguchi data, GRC normalization, Mamdani FIS defuzzification, TOPSIS calculations, GPR cross-validation, and confirmation trial validation.
 
-## 📌 Abstract Overview
-
-Optimization of natural fiber-reinforced bio-composites is frequently hindered by high epistemic uncertainty and unquantified interfacial micro-defects. In this study, an ANN predictive model benchmarked against GPR was developed for designing Areca husk and Kenaf bast fiber-reinforced hybrid epoxy composites. 
-
-Based on a **Taguchi $L_9$ experimental matrix** incorporating variable fiber loadings ($0\text{--}10\text{ wt\%}$) and benzoyl chloride surface treatments ($0\text{--}5\text{ wt\%}$), predictive models were established for tensile, flexural, and impact strengths. Dual multi-objective decision modeling using GRA and TOPSIS resolved competing mechanical properties, yielding an identical global optimum at **10 wt% Areca / 10 wt% Kenaf / 5 wt% surface treatment**.
-
-* **Peak Mechanical Metrics:**
-  * Ultimate Tensile Strength: **37.48 MPa**
-  * Flexural Strength: **64.32 MPa**
-  * Impact Strength: **72.78 J/m**
-* **Microstructural Fractography (SEM):**
-  * Interfacial Void Fraction: **0.82%**
-  * Fiber Debonding Gap: **0.41 µm**
-* **Predictive Accuracy:** $R^2 = 0.9982$, $\text{MAE} = 0.040\text{ MPa}$
-
----
-
-## 🛠 Tech Stack
-
-* **Programming Language:** Python 3.10+
-* **Deep Learning & Regressors:** PyTorch, Scikit-Learn (MLPRegressor, GaussianProcessRegressor)
-* **Multi-Criteria Decision Making (MCDM):** Custom PyTorch/NumPy implementation of TOPSIS and GRA
-* **Statistical Analysis:** SciPy, Statsmodels
-* **Data Processing & Visualization:** Pandas, NumPy, Matplotlib, Seaborn
-
----
-
-## 📊 Performance Benchmarking
-
-| Model Architecture | $R^2$ Score | MAE (MPa) | RMSE (MPa) | Training Time (s) |
-| :--- | :---: | :---: | :---: | :---: |
-| **ANN (Proposed)** | **0.9982** | **0.040** | **0.052** | **1.24** |
-| Gaussian Process Regression (GPR) | 0.9845 | 0.089 | 0.104 | 0.45 |
-| Support Vector Regression (SVR) | 0.9412 | 0.185 | 0.210 | 0.12 |
-| Random Forest Regressor | 0.9630 | 0.120 | 0.145 | 0.88 |
-
----
-
-## 🚀 Installation & Setup
+## Prerequisites & Installation
+Ensure you have Python 3.8+ installed along with the required libraries:
 
 ```bash
-# Clone the repository
-git clone [https://github.com/shree747/A-Graph-Enhanced-ANN-TOPSIS-Hybrid-Intelligence-Framework.git](https://github.com/shree747/A-Graph-Enhanced-ANN-TOPSIS-Hybrid-Intelligence-Framework.git)
-cd A-Graph-Enhanced-ANN-TOPSIS-Hybrid-Intelligence-Framework
+pip install numpy pandas scikit-learn
+```
 
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+## Running the Analysis
+Execute the main script to generate all MCDM rankings, response tables, and machine learning validation metrics:
 
-# Install required dependencies
-pip install -r requirements.txt
+```bash
+python run_analysis.py
+```
 
-💻 Quickstart Usage
-1. Train ANN vs. GPR Benchmark Models
-Bash
-python train.py --dataset data/taguchi_L9_experimental.csv --model all
-2. Run GRA and TOPSIS Multi-Objective Optimization
-Bash
-python optimize.py --weights 0.4 0.3 0.3 --method dual
+## Key Experimental Results
+
+### 1. Multi-Response Optimization Convergence
+All three MCDM methods independently converge on **Trial 9** as the top-performing formulation within the experimental array:
+
+| Method | Metric | Trial 9 Value | Array Rank |
+| :--- | :--- | :--- | :--- |
+| **Standard GRA** | Grey Relational Grade ($\text{GRG}$) | `0.9216` | **#1** |
+| **Fuzzy-GRA** | Grey Fuzzy Relational Grade ($\text{GFRG}$) | `0.8920` | **#1** |
+| **TOPSIS** | Closeness Coefficient ($\text{CC}$) | `0.9209` | **#1** |
+
+### 2. Corrected Fuzzy-GRA Factor Response Table
+Factor delta analysis ($\Delta = \text{Max} - \text{Min}$) derived from level-wise GFRG averages highlights the relative influence of each processing parameter:
+
+| Factor | Level 1 | Level 2 | Level 3 | Delta ($\Delta$) | Rank |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Areca Fiber (wt%)** | 0.4208 | 0.5746 | 0.7867 | **0.3659** | **1** |
+| **Kenaf Fiber (wt%)** | 0.4771 | 0.6554 | 0.6496 | **0.1783** | **2** |
+| **BzCl Treatment (wt%)** | 0.5721 | 0.5965 | 0.6136 | **0.0415** | **3** |
+
+* **Main-Effect Optimal Combination:** $10\text{ wt\% Areca}$ (Level 3) / $5\text{ wt\% Kenaf}$ (Level 2) / $5\text{ wt\% Treatment}$ (Level 3).
+
+### 3. Confirmation Experiment Validation
+- **Global Optimum Formulation:** $10\text{ wt\% Areca} / 10\text{ wt\% Kenaf} / 5\text{ wt\% Treatment}$
+- **Measured Metrics:**
+  - Ultimate Tensile Strength ($\text{TS}$): **$37.48\text{ MPa}$**
+  - Ultimate Flexural Strength ($\text{FS}$): **$64.32\text{ MPa}$**
+  - Impact Strength ($\text{IS}$): **$72.78\text{ J/m}$**
+- **GPR LOOCV Validation Error:** $\mathbf{< 2.0\%}$ relative prediction error.
